@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #fff2cc, #ffcccc);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .registration-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            width: 500px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .error {
+            color: red;
+            font-size: 0.8em;
+            margin-top: 5px;
+        }
+        .radio-group {
+            display: flex;
+            gap: 15px;
+        }
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        #registerBtn {
+            width: 100%;
+            padding: 10px;
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .language-group {
+            display: flex;
+            gap: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="registration-container">
+        <h2>Registration Form</h2>
+        <form id="registrationForm">
+            <div class="form-group">
+                <label>First Name</label>
+                <input type="text" id="firstName" name="firstName">
+                <div id="firstNameError" class="error"></div>
+            </div>
+
+            <div class="form-group">
+                <label>Last Name</label>
+                <input type="text" id="lastName" name="lastName">
+                <div id="lastNameError" class="error"></div>
+            </div>
+
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="email" name="email">
+                <div id="emailError" class="error"></div>
+            </div>
+
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="password" name="password">
+                <div id="passwordError" class="error"></div>
+            </div>
+
+            <div class="form-group">
+                <label>Re-enter Password</label>
+                <input type="password" id="confirmPassword" name="confirmPassword">
+                <div id="confirmPasswordError" class="error"></div>
+            </div>
+
+            <div class="form-group">
+                <label>Gender</label>
+                <div class="radio-group">
+                    <label>
+                        <input type="radio" name="gender" value="male"> Male
+                    </label>
+                    <label>
+                        <input type="radio" name="gender" value="female"> Female
+                    </label>
+                </div>
+                <div id="genderError" class="error"></div>
+            </div>
+
+            <div class="form-group">
+                <label>Age</label>
+                <input type="number" id="age" name="age">
+                <div id="ageError" class="error"></div>
+            </div>
+
+            <div class="form-group">
+                <label>Phone Number</label>
+                <input type="tel" id="phone" name="phone">
+                <div id="phoneError" class="error"></div>
+            </div>
+
+            <div class="form-group">
+                <label>Address</label>
+                <textarea id="address" name="address"></textarea>
+                <div id="addressError" class="error"></div>
+            </div>
+
+            <div class="form-group">
+                <label>State</label>
+                <input type="text" id="state" name="state">
+                <div id="stateError" class="error"></div>
+            </div>
+
+            <div class="form-group">
+                <label>Country</label>
+                <select id="country" name="country">
+                    <option value="">Choose your country</option>
+                    <option value="India">India</option>
+                    <option value="USA">USA</option>
+                    <option value="UK">UK</option>
+                </select>
+                <div id="countryError" class="error"></div>
+            </div>
+
+            <div class="form-group">
+                <label>Languages Known</label>
+                <div class="language-group">
+                    <label><input type="checkbox" name="languages" value="English"> English</label>
+                    <label><input type="checkbox" name="languages" value="Kannada"> Kannada</label>
+                    <label><input type="checkbox" name="languages" value="Hindi"> Hindi</label>
+                    <label><input type="checkbox" name="languages" value="Telugu"> Telugu</label>
+                </div>
+            </div>
+
+            <div class="checkbox-group">
+                <input type="checkbox" id="declaration" name="declaration">
+                <label for="declaration">I hereby declare that all given details are true</label>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" id="registerBtn">REGISTER</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            // Reset previous error messages
+            const errorFields = document.querySelectorAll('.error');
+            errorFields.forEach(field => field.textContent = '');
+
+            // Validate First Name
+            const firstName = document.getElementById('firstName');
+            if (firstName.value.trim() === '') {
+                document.getElementById('firstNameError').textContent = 'Poor';
+                return;
+            }
+
+            // Validate Last Name
+            const lastName = document.getElementById('lastName');
+            if (lastName.value.trim() === '') {
+                document.getElementById('lastNameError').textContent = 'Poor';
+                return;
+            }
+
+            // Validate Email
+            const email = document.getElementById('email');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email.value)) {
+                document.getElementById('emailError').textContent = 'Poor';
+                return;
+            }
+
+            // Validate Password
+            const password = document.getElementById('password');
+            const confirmPassword = document.getElementById('confirmPassword');
+            if (password.value.length < 6) {
+                document.getElementById('passwordError').textContent = 'Poor';
+                return;
+            }
+
+            // Validate Password Match
+            if (password.value !== confirmPassword.value) {
+                document.getElementById('confirmPasswordError').textContent = 'Poor or Mismatch';
+                return;
+            }
+
+            // Validate Gender
+            const gender = document.querySelector('input[name="gender"]:checked');
+            if (!gender) {
+                document.getElementById('genderError').textContent = 'Please select a gender';
+                return;
+            }
+
+            // Validate Age
+            const age = document.getElementById('age');
+            if (age.value === '' || isNaN(age.value) || parseInt(age.value) < 18) {
+                document.getElementById('ageError').textContent = 'Poor';
+                return;
+            }
+
+            // Validate Phone Number
+            const phone = document.getElementById('phone');
+            const phoneRegex = /^\d{10}$/;
+            if (!phoneRegex.test(phone.value)) {
+                document.getElementById('phoneError').textContent = 'Poor';
+                return;
+            }
+
+            // Validate Address
+            const address = document.getElementById('address');
+            if (address.value.trim() === '') {
+                document.getElementById('addressError').textContent = 'Poor';
+                return;
+            }
+
+            // Validate State
+            const state = document.getElementById('state');
+            if (state.value.trim() === '') {
+                document.getElementById('stateError').textContent = 'Poor';
+                return;
+            }
+
+            // Validate Country
+            const country = document.getElementById('country');
+            if (country.value === '') {
+                document.getElementById('countryError').textContent = 'Poor';
+                return;
+            }
+
+            // Validate Declaration
+            const declaration = document.getElementById('declaration');
+            if (!declaration.checked) {
+                alert('Please check the declaration');
+                return;
+            }
+
+            // If all validations pass
+            alert('Registration Successful!');
+            this.reset();
+        });
+    </script>
+</body>
+</html>
